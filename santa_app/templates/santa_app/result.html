@@ -1,0 +1,213 @@
+<!--{% load static %}-->
+<!--<!DOCTYPE html>-->
+<!--<html>-->
+<!--<head>-->
+<!--    <title>Secret Santa Result</title>-->
+<!--    <link rel="stylesheet" href="{% static 'santa_app/style.css' %}">-->
+<!--</head>-->
+<!--<body>-->
+<!--    <div class="container">-->
+<!--        <h1>Secret Santa Assignments Generated 🎁</h1>-->
+
+<!--        &lt;!&ndash; CSV Download &ndash;&gt;-->
+<!--        {% if output_file %}-->
+<!--        <a href="{{ output_file }}" download class="download-btn">-->
+<!--            Download Secret Santa CSV-->
+<!--        </a>-->
+<!--        {% endif %}-->
+
+<!--        &lt;!&ndash; Optional: Display assignments dynamically from DB &ndash;&gt;-->
+<!--        {% if assignments %}-->
+<!--        <table>-->
+<!--            <thead>-->
+<!--                <tr>-->
+<!--                    <th>Giver</th>-->
+<!--                    <th>Receiver</th>-->
+<!--                    <th>Year</th>-->
+<!--                </tr>-->
+<!--            </thead>-->
+<!--            <tbody>-->
+<!--                {% for assign in assignments %}-->
+<!--                <tr>-->
+<!--                    <td>{{ assign.giver.name }}</td>-->
+<!--                    <td>{{ assign.receiver.name }}</td>-->
+<!--                    <td>{{ assign.year }}</td>-->
+<!--                </tr>-->
+<!--                {% endfor %}-->
+<!--            </tbody>-->
+<!--        </table>-->
+<!--        {% endif %}-->
+<!--    </div>-->
+<!--</body>-->
+<!--</html>-->
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secret Santa Result | Merry Christmas!</title>
+    <link rel="stylesheet" href="{% static 'santa_app/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Additional inline styles */
+        body { background: linear-gradient(135deg, #1A472A 0%, #0A5C36 50%, #1A472A 100%) !important; }
+    </style>
+</head>
+<body>
+    <!-- Background pattern -->
+    <div class="bg-pattern"></div>
+
+    <!-- Snowfall Effect -->
+    <div id="snowflakes-container"></div>
+
+    <!-- Christmas Tree Decoration -->
+    <div class="christmas-tree">
+        <div class="tree-top"></div>
+        <div class="tree-middle"></div>
+        <div class="tree-bottom"></div>
+        <div class="tree-trunk"></div>
+        <div class="bell"></div>
+    </div>
+
+    <div class="container">
+        <div class="result-header">
+            <span class="result-icon">🎅</span>
+            <h1>Secret Santa Assignments Generated!</h1>
+            <span class="result-icon">🎄</span>
+        </div>
+
+        <div class="success-message">
+            <div>
+                <h3>Ho Ho Ho! Success!</h3>
+                <p>All Secret Santa assignments have been successfully generated. You can now download the CSV file with the assignments or view them below.</p>
+            </div>
+        </div>
+
+        <!-- CSV Download -->
+        {% if output_file %}
+        <div style="text-align: center; margin: 2.5rem 0;">
+            <a href="{{ output_file }}" download class="download-btn">
+                <i class="fas fa-download"></i> Download Secret Santa CSV
+            </a>
+        </div>
+        {% endif %}
+
+        <!-- Optional: Display assignments dynamically from DB -->
+        {% if assignments %}
+        <div style="overflow-x: auto;">
+            <table>
+                <thead>
+                    <tr>
+                        <th><i class="fas fa-user-gift"></i> Giver</th>
+                        <th><i class="fas fa-user-check"></i> Receiver</th>
+                        <th><i class="fas fa-calendar-alt"></i> Year</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for assign in assignments %}
+                    <tr>
+                        <td>{{ assign.giver.name }}</td>
+                        <td>{{ assign.receiver.name }}</td>
+                        <td>{{ assign.year }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div style="text-align: center; padding: 2rem; background-color: #FFF9E6; border-radius: 10px; margin: 2rem 0;">
+            <i class="fas fa-gift" style="font-size: 3rem; color: var(--christmas-red); margin-bottom: 1rem;"></i>
+            <h3>Assignments are ready!</h3>
+            <p>Download the CSV file to see all the Secret Santa pairings.</p>
+        </div>
+        {% endif %}
+
+        <div class="footer-note">
+            <p><i class="fas fa-shield-alt"></i> Assignments are confidential and only visible to administrators.</p>
+            <p style="margin-top: 0.5rem;"><i class="fas fa-redo"></i> You can upload a new CSV file anytime to generate new assignments.</p>
+        </div>
+
+        <div style="text-align: center; margin-top: 2rem;">
+            <a href="/upload" style="color: var(--christmas-red); text-decoration: none; font-weight: 600; padding: 10px 20px; border: 2px solid var(--christmas-red); border-radius: 5px;">
+                <i class="fas fa-arrow-left"></i> Back to Upload Page
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Generate snowflakes
+        document.addEventListener('DOMContentLoaded', function() {
+            const container = document.getElementById('snowflakes-container');
+            const snowflakeCount = 100;
+
+            for (let i = 0; i < snowflakeCount; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.className = 'snowflake';
+
+                // Random size
+                const size = Math.random() * 8 + 2;
+                snowflake.style.width = size + 'px';
+                snowflake.style.height = size + 'px';
+
+                // Random position
+                snowflake.style.left = Math.random() * 100 + 'vw';
+
+                // Random animation
+                const duration = Math.random() * 8 + 5;
+                snowflake.style.animationDuration = duration + 's';
+                snowflake.style.animationDelay = Math.random() * 5 + 's';
+
+                // Random opacity
+                snowflake.style.opacity = Math.random() * 0.7 + 0.3;
+
+                container.appendChild(snowflake);
+            }
+
+            // Create confetti celebration
+            setTimeout(createConfetti, 300);
+
+            function createConfetti() {
+                const colors = ['#C41E3A', '#0A5C36', '#D4AF37', '#FFFFFF'];
+                for (let i = 0; i < 50; i++) {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.top = '-10px';
+                    confetti.style.width = (Math.random() * 10 + 5) + 'px';
+                    confetti.style.height = (Math.random() * 10 + 5) + 'px';
+                    confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+
+                    // Animation
+                    const animationDuration = Math.random() * 3 + 2;
+                    confetti.style.animation = `confettiFall ${animationDuration}s linear forwards`;
+
+                    document.body.appendChild(confetti);
+
+                    // Remove after animation
+                    setTimeout(() => {
+                        if (confetti.parentNode) {
+                            confetti.remove();
+                        }
+                    }, animationDuration * 1000);
+                }
+            }
+
+            // Add confetti animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes confettiFall {
+                    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+                    100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+                }
+            `;
+            document.head.appendChild(style);
+        });
+    </script>
+</body>
+</html>
+
+
+

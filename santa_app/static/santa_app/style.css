@@ -1,0 +1,468 @@
+/*body {
+    font-family: Arial, sans-serif;
+    margin: 40px;
+}
+
+h1 {
+    color: #333;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #2a9d8f;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #21867a;
+}*/
+
+/* style.css - Christmas Secret Santa Theme - FIXED VERSION */
+@import url('https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&family=Poppins:wght@300;400;600&display=swap');
+
+:root {
+    --christmas-red: #C41E3A;
+    --christmas-green: #0A5C36;
+    --christmas-gold: #D4AF37;
+    --snow-white: #FFF9F5;
+    --forest-green: #1A472A;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* =========================================== */
+/* BODY BACKGROUND - APPLIES TO ALL PAGES */
+/* =========================================== */
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #1A472A 25%, #0A5C36 50%, #1A472A 100%) !important;
+    color: #333;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+    background-image:
+        radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 20%),
+        radial-gradient(circle at 100% 80%, rgba(196, 30, 58, 0.1) 0%, transparent 20%);
+    background-attachment: fixed;
+    margin: 0;
+    padding: 20px;
+}
+
+/* =========================================== */
+/* BACKGROUND PATTERN - FOR ALL PAGES */
+/* =========================================== */
+.bg-pattern {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+        radial-gradient(circle at 20% 80%, rgba(196, 30, 58, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(10, 92, 54, 0.15) 0%, transparent 50%);
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* =========================================== */
+/* SNOWFALL EFFECT - FOR ALL PAGES */
+/* =========================================== */
+#snowflakes-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1; /* BEHIND content */
+    overflow: hidden;
+}
+
+.snowflake {
+    position: absolute;
+    background-color: white;
+    border-radius: 50%;
+    opacity: 0.8;
+    animation-name: fall;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(-10px) translateX(0px) rotate(0deg);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(100vh) translateX(20px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* =========================================== */
+/* CHRISTMAS TREE DECORATION - FOR ALL PAGES */
+/* =========================================== */
+.christmas-tree {
+    position: fixed;
+    width: 120px;
+    height: 150px;
+    right: 30px;
+    bottom: 30px;
+    z-index: 50;
+    opacity: 0.9;
+    pointer-events: none;
+}
+
+.tree-top {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 30px solid transparent;
+    border-right: 30px solid transparent;
+    border-bottom: 50px solid var(--christmas-green);
+    top: 0;
+    left: 30px;
+}
+
+.tree-middle {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 40px solid transparent;
+    border-right: 40px solid transparent;
+    border-bottom: 60px solid #0A5C36;
+    top: 35px;
+    left: 20px;
+}
+
+.tree-bottom {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 50px solid transparent;
+    border-right: 50px solid transparent;
+    border-bottom: 70px solid #1A472A;
+    top: 85px;
+    left: 10px;
+}
+
+.tree-trunk {
+    position: absolute;
+    width: 20px;
+    height: 25px;
+    background-color: #8B4513;
+    top: 150px;
+    left: 50px;
+}
+
+.bell {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background-color: var(--christmas-gold);
+    border-radius: 50% 50% 40% 40%;
+    top: 50px;
+    left: 30px;
+    animation: ring 3s infinite ease-in-out;
+}
+
+@keyframes ring {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(5deg); }
+    75% { transform: rotate(-5deg); }
+}
+
+/* =========================================== */
+/* HEADER AND TYPOGRAPHY */
+/* =========================================== */
+h1 {
+    font-family: 'Mountains of Christmas', cursive;
+    color: var(--christmas-red);
+    font-size: 3.2rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    position: relative;
+    z-index: 10;
+}
+
+h1:after {
+    content: "🎄";
+    position: absolute;
+    right: -40px;
+    top: -5px;
+}
+
+h1:before {
+    content: "🎅";
+    position: absolute;
+    left: -40px;
+    top: -5px;
+}
+
+/* =========================================== */
+/* CONTAINER - FOR ALL PAGES */
+/* =========================================== */
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2.5rem;
+    background-color: rgba(255, 249, 245, 0.95);
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+    position: relative;
+    z-index: 100; /* ABOVE snowflakes */
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    border: 8px solid var(--christmas-red);
+    border-image: linear-gradient(45deg, var(--christmas-red), var(--christmas-gold)) 1;
+}
+
+/* =========================================== */
+/* FORM STYLING */
+/* =========================================== */
+form {
+    background-color: white;
+    padding: 2.5rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    margin-top: 1.5rem;
+    border: 3px solid var(--christmas-green);
+    position: relative;
+    z-index: 10;
+}
+
+.form-group {
+    margin-bottom: 1.8rem;
+}
+
+form p {
+    margin-bottom: 1.8rem;
+    position: relative;
+    z-index: 10;
+}
+
+form p label {
+    display: block;
+    font-weight: 600;
+    color: var(--christmas-green);
+    margin-bottom: 0.8rem;
+    font-size: 1.1rem;
+}
+
+input[type="file"] {
+    width: 100%;
+    padding: 1rem;
+    border: 2px dashed var(--christmas-red);
+    border-radius: 10px;
+    background-color: #FFF9F9;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+input[type="file"]:hover {
+    background-color: #FFF0F0;
+    border-color: var(--christmas-gold);
+}
+
+/* =========================================== */
+/* BUTTON STYLING */
+/* =========================================== */
+.download-btn, button[type="submit"] {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--christmas-red), #D32F2F);
+    color: white;
+    padding: 1.2rem 2.5rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.2rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(196, 30, 58, 0.3);
+    margin-top: 1rem;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0.5px;
+    position: relative;
+    z-index: 10;
+}
+
+.download-btn:hover, button[type="submit"]:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(196, 30, 58, 0.4);
+    background: linear-gradient(135deg, #D32F2F, var(--christmas-red));
+}
+
+.download-btn:active, button[type="submit"]:active {
+    transform: translateY(-2px);
+}
+
+/* =========================================== */
+/* TABLE STYLING */
+/* =========================================== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2.5rem 0;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 10;
+}
+
+thead {
+    background: linear-gradient(to right, var(--christmas-green), #1A472A);
+}
+
+thead th {
+    color: white;
+    padding: 1.2rem;
+    text-align: left;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+tbody tr {
+    border-bottom: 1px solid #EEE;
+    transition: background-color 0.2s ease;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #F9F9F9;
+}
+
+tbody tr:hover {
+    background-color: #FFF0F0;
+}
+
+td {
+    padding: 1rem 1.2rem;
+    color: #333;
+}
+
+/* =========================================== */
+/* SUCCESS MESSAGE */
+/* =========================================== */
+.success-message {
+    background-color: #E8F5E9;
+    border-left: 5px solid var(--christmas-green);
+    padding: 1.5rem;
+    margin: 2rem 0;
+    border-radius: 0 10px 10px 0;
+    display: flex;
+    align-items: center;
+    position: relative;
+    z-index: 10;
+}
+
+.success-message:before {
+    content: "✅";
+    font-size: 1.8rem;
+    margin-right: 1rem;
+}
+
+/* =========================================== */
+/* UPLOAD PAGE SPECIFIC */
+/* =========================================== */
+.upload-instructions {
+    background-color: #E3F2FD;
+    padding: 1.5rem;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+    border-left: 5px solid var(--christmas-red);
+    position: relative;
+    z-index: 10;
+}
+
+.upload-instructions h3 {
+    color: var(--christmas-red);
+    margin-bottom: 0.8rem;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* =========================================== */
+/* RESULT PAGE SPECIFIC */
+/* =========================================== */
+.result-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 10;
+}
+
+.result-header h1 {
+    margin-bottom: 0;
+}
+
+.result-icon {
+    font-size: 3rem;
+    margin: 0 1rem;
+}
+
+/* =========================================== */
+/* FOOTER */
+/* =========================================== */
+.footer-note {
+    text-align: center;
+    margin-top: 2.5rem;
+    color: var(--christmas-green);
+    font-style: italic;
+    padding-top: 1.5rem;
+    border-top: 2px dashed var(--christmas-gold);
+    position: relative;
+    z-index: 10;
+}
+
+/* =========================================== */
+/* CONFETTI STYLING */
+/* =========================================== */
+.confetti {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    z-index: 9999;
+    pointer-events: none;
+}
+
+/* =========================================== */
+/* RESPONSIVE DESIGN */
+/* =========================================== */
+@media (max-width: 768px) {
+    .container {
+        padding: 1.5rem;
+        margin: 1rem;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+    }
+
+    h1:after, h1:before {
+        display: none;
+    }
+
+    .christmas-tree {
+        display: none;
+    }
+
+    table {
+        font-size: 0.9rem;
+    }
+
+    thead th, td {
+        padding: 0.8rem;
+    }
+}
