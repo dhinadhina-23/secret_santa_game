@@ -1,40 +1,20 @@
-<!--{% load static %}-->
-<!--<!DOCTYPE html>-->
-<!--<html>-->
-<!--<head>-->
-<!--    <title>Upload Employee CSV</title>-->
-<!--    <link rel="stylesheet" href="{% static 'santa_app/style.css' %}">-->
-<!--</head>-->
-<!--<body>-->
-<!--    <div class="container">-->
-<!--        <h1>Secret Santa Employee Upload</h1>-->
-<!--        <form method="post" enctype="multipart/form-data">-->
-<!--            {% csrf_token %}-->
-<!--            {{ form.as_p }}-->
-<!--            <button type="submit">Upload & Generate</button>-->
-<!--        </form>-->
-<!--    </div>-->
-<!--</body>-->
-<!--</html>-->
-
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Upload Employee CSV | Secret Santa</title>
+
     <link rel="stylesheet" href="{% static 'santa_app/style.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- Background pattern -->
-    <div class="bg-pattern"></div>
 
-    <!-- Snowfall Effect - UPDATED ID -->
+    <div class="bg-pattern"></div>
     <div id="snowflakes-container"></div>
 
-    <!-- Christmas Tree Decoration -->
     <div class="christmas-tree">
         <div class="tree-top"></div>
         <div class="tree-middle"></div>
@@ -48,15 +28,28 @@
 
         <div class="upload-instructions">
             <h3><i class="fas fa-info-circle"></i> Upload Instructions</h3>
-            <p>Upload a CSV file containing employee names and email addresses. The system will automatically generate Secret Santa assignments while ensuring no one gets themselves or immediate family members.</p>
+            <p>
+                Upload a CSV file containing employee names and email addresses.
+                The system will automatically generate Secret Santa assignments
+                while ensuring no one gets themselves.
+            </p>
         </div>
 
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
 
             <div class="form-group">
-                <label for="csv_file"><i class="fas fa-file-csv"></i> Select CSV File</label>
+                <label for="csv_file">
+                    <i class="fas fa-file-csv"></i> Select CSV File
+                </label>
+
                 {{ form.csv_file }}
+
+                {% if form.csv_file.errors %}
+                    <div class="error-message">
+                        {{ form.csv_file.errors.0 }}
+                    </div>
+                {% endif %}
             </div>
 
             <div style="text-align: center;">
@@ -71,50 +64,33 @@
         </form>
     </div>
 
+
     <script>
-        // Generate snowflakes - UPDATED container ID
         document.addEventListener('DOMContentLoaded', function() {
             const snowflakesContainer = document.getElementById('snowflakes-container');
-            const snowflakeCount = 80; // Increased for better effect
+            const snowflakeCount = 80;
 
             for (let i = 0; i < snowflakeCount; i++) {
                 const snowflake = document.createElement('div');
                 snowflake.classList.add('snowflake');
 
-                // Random size between 3px and 10px
                 const size = Math.random() * 7 + 3;
                 snowflake.style.width = `${size}px`;
                 snowflake.style.height = `${size}px`;
-
-                // Random position
                 snowflake.style.left = `${Math.random() * 100}vw`;
 
-                // Random animation duration between 5 and 15 seconds
                 const duration = Math.random() * 10 + 5;
                 snowflake.style.animationDuration = `${duration}s`;
-
-                // Random delay
                 snowflake.style.animationDelay = `${Math.random() * 5}s`;
-
-                // Random opacity
                 snowflake.style.opacity = Math.random() * 0.7 + 0.3;
 
                 snowflakesContainer.appendChild(snowflake);
             }
-
-            // Add festive background music on user interaction
-            let musicPlayed = false;
-            document.body.addEventListener('click', function playFestiveMusic() {
-                if (!musicPlayed) {
-                    const audio = new Audio('https://assets.mixkit.co/music/preview/mixkit-christasy-sleigh-114.mp3');
-                    audio.volume = 0.1;
-                    audio.play().catch(e => console.log("Audio play failed:", e));
-                    musicPlayed = true;
-                    // Remove event listener after playing
-                    document.body.removeEventListener('click', playFestiveMusic);
-                }
-            });
         });
+
     </script>
+
 </body>
 </html>
+
+
